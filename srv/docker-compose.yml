@@ -47,3 +47,4 @@ services:
     - ./nginx/log/:/config/log/:rw
     - ./certs/:/config/certs/:ro
     - ./www:/config/www/:ro
+    restart: "always"
