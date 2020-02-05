@@ -1,0 +1,49 @@
+# Docker Compose config for eit-backend
+
+version: '3.7'
+services:
+#  app:
+#    container_name: eit-backend-app
+#    image: TODO
+#    environment:
+#    - APP_UID=999
+#    - APP_GID=998
+#    # TODO add superuser info on first run
+#    - SUPERUSER_USERNAME=hon
+#    - SUPERUSER_EMAIL=haavard.nordstrand@gmail.com
+#    - SUPERUSER_PASSWORD=HIDDEN
+#    - SUPERUSER_INACTIVE=true
+#    - NO_START=false
+#    volumes:
+#    - ./settings.py:/srv/app/studlan/settings/local.py:ro
+#    - ./log:/srv/app/log:rw
+#    - ./doc/static:/srv/app/static:rw
+#    restart: "always"
+#    depends_on:
+#    - db
+
+#  db:
+#    container_name: eit-backend-db
+#    image: postgres
+#    # postgres doesn't like being run as a specified user, so databse files have a weird owner
+#    # postgres doesn't write log files by default, so no log dir is bound
+#    environment:
+#    - POSTGRES_USER=postgres
+#    - POSTGRES_PASSWORD=HIDDEN
+#    volumes:
+#    - ./db/data:/var/lib/postgresql/data:rw
+#    restart: "always"
+
+  nginx:
+    image: linuxserver/nginx
+    container_name: eit-backend-nginx
+    environment:
+    # User: eit-backend
+    - PUID=999
+    - PGID=998
+    - TZ=Europe/Oslo
+    volumes:
+    - ./nginx/config/:/config/nginx/:ro
+    - ./nginx/log/:/config/log/:rw
+    - ./certs/:/config/certs/:ro
+    - ./www:/config/www/:ro
