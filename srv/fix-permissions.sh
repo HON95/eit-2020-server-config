@@ -16,10 +16,15 @@ mkdir -p db
 chown root:root db
 chmod 0700 db
 
+# Certs
+mkdir -p certs
+chown -R eit-backend:eit-backend certs
+chmod 0700 certs
+
 # Public web docs, accessable by nginx
-mkdir -p doc
-chown -R eit-backend:eit-backend doc
-chmod 0755 doc
+mkdir -p www
+chown -R eit-backend:eit-backend www
+chmod 0755 www
 
 # App logs
 mkdir -p log
