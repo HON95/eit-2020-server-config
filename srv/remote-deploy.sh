@@ -2,11 +2,14 @@
 
 # Remote deployment script for eit-backend.
 
+APP_DIR="/srv/eit-backend"
 LOG_FILE="log/remote-deploy.log"
 
 set -eu
 
-mkdir -p $(dirname $LOG_FILE)
+cd "$APP_DIR"
+
+mkdir -p "$(dirname $LOG_FILE)"
 
 #./backup.sh > $LOG_FILE 2>&1
 
