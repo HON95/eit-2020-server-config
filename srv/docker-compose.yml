@@ -46,7 +46,8 @@ services:
     volumes:
     - ./nginx-config/:/config/nginx/:ro
     - ./log/nginx/:/config/log/:rw
-    - ./certs/:/config/certs/:ro
+    - ./certs/eit.haavard.cloud.cert:/config/certs/eit.haavard.cloud.cert:ro
+    - ./certs/eit.haavard.cloud.key:/config/certs/eit.haavard.cloud.key:ro
     - ./www:/config/www/:ro
     ports:
     - 80:80
