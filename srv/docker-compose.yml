@@ -17,7 +17,7 @@ services:
     volumes:
     - ./settings.py:/app/src/settings/local.py:ro
     - ./db.sqlite3:/app/db.sqlite3:rw
-    - ./log:/app/log:rw
+    - ./log/app/:/app/log:rw
     - ./www/static:/app/static:rw
     restart: "always"
 #    depends_on:
@@ -44,8 +44,8 @@ services:
     - PGID=998
     - TZ=Europe/Oslo
     volumes:
-    - ./nginx/config/:/config/nginx/:ro
-    - ./nginx/log/:/config/log/:rw
+    - ./nginx-config/:/config/nginx/:ro
+    - ./log/nginx/:/config/log/:rw
     - ./certs/:/config/certs/:ro
     - ./www:/config/www/:ro
     ports:
