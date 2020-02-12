@@ -12,9 +12,14 @@ chown root:root *.sh
 chmod 0700 *.sh
 
 # DB stuff, DB data dir inside
-mkdir -p db
-chown root:root db
-chmod 0700 db
+#mkdir -p db
+#chown root:root db
+#chmod 0700 db
+
+# DB file
+touch db.sqlite3
+chown eit-backend:eit-backend db.sqlite3
+chmod 0600 db.sqlite3
 
 # Certs
 mkdir -p certs
