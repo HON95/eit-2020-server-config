@@ -2,23 +2,24 @@
 
 version: '3.7'
 services:
-#  app:
-#    container_name: eit-backend-app
-#    image: TODO
-#    environment:
-#    - APP_UID=999
-#    - APP_GID=998
-#    # TODO add superuser info on first run
-#    - SUPERUSER_USERNAME=hon
-#    - SUPERUSER_EMAIL=haavard.nordstrand@gmail.com
-#    - SUPERUSER_PASSWORD=HIDDEN
-#    - SUPERUSER_INACTIVE=true
-#    - NO_START=false
-#    volumes:
-#    - ./settings.py:/srv/app/studlan/settings/local.py:ro
-#    - ./log:/srv/app/log:rw
-#    - ./doc/static:/srv/app/static:rw
-#    restart: "always"
+  app:
+    container_name: eit-backend-app
+    image: ntnutio48522020gr2/backend:bleeding
+    environment:
+    - APP_UID=999
+    - APP_GID=998
+    # TODO add superuser info on first run
+    - SUPERUSER_USERNAME=hon
+    - SUPERUSER_EMAIL=haavard.nordstrand@gmail.com
+    - SUPERUSER_PASSWORD=HIDDEN
+    - SUPERUSER_INACTIVE=true
+    - NO_START=false
+    volumes:
+    - ./settings.py:/app/src/settings/local.py:ro
+    - ./db.sqlite3:/app/db.sqlite3:rw
+    - ./log:/app/log:rw
+    - ./www/static:/app/static:rw
+    restart: "always"
 #    depends_on:
 #    - db
 
@@ -47,4 +48,7 @@ services:
     - ./nginx/log/:/config/log/:rw
     - ./certs/:/config/certs/:ro
     - ./www:/config/www/:ro
+    ports:
+    - 80:80
+    - 443:443
     restart: "always"
