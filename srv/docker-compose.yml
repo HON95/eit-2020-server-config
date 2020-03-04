@@ -1,27 +1,38 @@
-# Docker Compose config for eit-backend
+# Docker Compose config for eit
 
 version: '3.7'
 services:
-  app:
-    container_name: eit-backend-app
+  backend:
+    container_name: eit-backend
     image: ntnutio48522020gr2/backend:bleeding
     environment:
-    - APP_UID=999
-    - APP_GID=998
+    - TZ=Europe/Oslo
+    - APP_UID=900
+    - APP_GID=900
     # TODO add superuser info on first run
-    #- SUPERUSER_USERNAME=hon
-    #- SUPERUSER_EMAIL=haavard.nordstrand@gmail.com
-    #- SUPERUSER_PASSWORD=monstermonster
-    #- SUPERUSER_INACTIVE=true
+    - SUPERUSER_USERNAME=hon
+    - SUPERUSER_EMAIL=haavard.nordstrand@gmail.com
+    - SUPERUSER_PASSWORD=password
+    - SUPERUSER_INACTIVE=false
     - NO_START=false
     volumes:
-    - ./settings.py:/app/src/settings/local.py:ro
-    - ./db.sqlite3:/app/db.sqlite3:rw
-    - ./log/app/:/app/log:rw
-    - ./www/static:/app/static:rw
+    - ./backend/settings.py:/app/src/settings/local.py:ro
+    - ./backend/db.sqlite3:/app/db.sqlite3:rw
+    - ./log/backend/:/app/log:rw
+    - ./www/backend/static:/app/static:rw
+    #- ./backend/uwsgi.dev.ini:/app/uwsgi.ini:rw
     restart: "always"
 #    depends_on:
 #    - db
+
+  frontend:
+    container_name: eit-frontend
+    image: ntnutio48522020gr2/frontend:bleeding
+    environment:
+    - TZ=Europe/Oslo
+    volumes:
+    - ./frontend/config.js:/www/config.js:ro
+    restart: "always"
 
 #  db:
 #    container_name: eit-backend-db
@@ -37,15 +48,17 @@ services:
 
   nginx:
     image: nginx:1.17-alpine
-    container_name: eit-backend-nginx
+    container_name: eit-nginx
     environment:
     - TZ=Europe/Oslo
     volumes:
-    - ./nginx-config/nginx.conf:/etc/nginx/nginx.conf:ro
-    - ./nginx-config/sites/:/etc/nginx/sites/:ro
+    - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    - ./nginx/sites/:/etc/nginx/sites/:ro
     - ./log/nginx/:/var/log/nginx/:rw
     - ./certs/eit.haavard.cloud.cert:/config/certs/eit.haavard.cloud.cert:ro
     - ./certs/eit.haavard.cloud.key:/config/certs/eit.haavard.cloud.key:ro
+    - ./certs/api.eit.haavard.cloud.cert:/config/certs/api.eit.haavard.cloud.cert:ro
+    - ./certs/api.eit.haavard.cloud.key:/config/certs/api.eit.haavard.cloud.key:ro
     - ./www:/config/www/:ro
     ports:
     - 80:80

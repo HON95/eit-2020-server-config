@@ -2,7 +2,7 @@
 
 # Remote deployment script for eit-backend.
 
-APP_DIR="/srv/eit-backend"
+APP_DIR="/srv/eit"
 LOG_FILE="log/remote-deploy.log"
 
 set -eu

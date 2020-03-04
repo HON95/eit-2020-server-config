@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Deployment script for eit-backend.
+# Deployment script for eit back-end and front-end.
 # Must be called with the app dir as the PWD.
 
 LOCK_DIR="deploy.lock"
@@ -13,7 +13,7 @@ set -eu
 # mkdir uses atomic check-and-create
 if ! mkdir $LOCK_DIR 2>/dev/null; then
   echo "Warning: Another app deployment for this instance is already running, returning instead" 1>&2
-  exit -1
+  exit 0
 fi
 
 trap "rm -rf $LOCK_DIR" EXIT
