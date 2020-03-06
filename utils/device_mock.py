@@ -15,7 +15,7 @@ class Device:
         return self.pH
 
     def json(self):
-        return "{" + f"\"device\" : \"{self.uuid}\", \"ph\" : {self.pH}" + "}"
+        return "{" + "\"device\" : \"{uuid}\", \"ph\" : {ph}".format(uuid = self.uuid, ph=self.pH) + "}"
 
 
 if __name__ == "__main__":
