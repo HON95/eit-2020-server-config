@@ -47,6 +47,7 @@ if __name__ == "__main__":
 
         for device in devices:
             device.measurePH()
+            device.measureTemperature()
             params = device.json()
             conn.request("POST", "/v0/measurements/", params, headers)
             conn.getresponse().read()
